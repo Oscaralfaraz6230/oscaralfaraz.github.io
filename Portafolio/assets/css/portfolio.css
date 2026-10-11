@@ -1,0 +1,151 @@
+/* Lienzo 3D espacial en tiempo real */
+main section[id] {
+  scroll-margin-top: 6rem;
+}
+
+.portfolio-header > a:first-child,
+.portfolio-header > a:last-child {
+  flex-shrink: 0;
+}
+
+header.portfolio-header > a:first-child {
+  justify-self: start;
+}
+
+header.portfolio-header > a:last-child {
+  justify-self: end;
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  header.portfolio-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    column-gap: 1.5rem;
+    row-gap: 0.65rem;
+  }
+
+  header.portfolio-header nav {
+    display: flex;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
+    font-size: 10px;
+  }
+
+  header.portfolio-header nav a {
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1280px) {
+  header.portfolio-header {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr) max-content;
+    column-gap: 2.5rem;
+  }
+
+  header.portfolio-header nav {
+    justify-content: center;
+    gap: clamp(1rem, 1.4vw, 1.5rem);
+    white-space: nowrap;
+  }
+}
+
+#space-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Resplandor ambiental de nebulosa */
+.nebula-glow {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 38% 24% at 18% 28%, rgba(27, 112, 213, 0.15) 0%, transparent 100%),
+    radial-gradient(ellipse 34% 22% at 74% 36%, rgba(13, 147, 175, 0.14) 0%, transparent 100%),
+    radial-gradient(ellipse 27% 18% at 50% 76%, rgba(65, 76, 177, 0.11) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Superficies de lectura del hero: dejan ver el espacio sin perder contraste */
+.hero-title {
+  text-shadow: 0 3px 24px rgba(0, 0, 0, 0.82);
+}
+
+.hero-copy {
+  background: rgba(3, 5, 12, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(24px) saturate(135%);
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+}
+
+.hero-metrics {
+  position: relative;
+  isolation: isolate;
+  border-radius: 12px;
+}
+
+.hero-metrics::before {
+  content: '';
+  position: absolute;
+  inset: -0.5rem -0.75rem;
+  z-index: -1;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  background: linear-gradient(105deg, rgba(3, 5, 12, 0.88), rgba(3, 5, 12, 0.74) 72%, rgba(3, 5, 12, 0.52));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.hero-metrics .text-slate-400 {
+  color: #cbd5e1;
+}
+
+.hero-metrics > div > div:first-child {
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+
+.hero-location {
+  color: #e2e8f0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+/* Paneles de cristal cósmico */
+.cosmos-card {
+  background: rgba(9, 14, 28, 0.82);
+  backdrop-filter: blur(24px) saturate(165%);
+  -webkit-backdrop-filter: blur(24px) saturate(165%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cosmos-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(700px circle at var(--mouse-x, -300px) var(--mouse-y, -300px), rgba(56, 189, 248, 0.08), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.cosmos-card:hover::before {
+  opacity: 1;
+}
+
+.cosmos-card:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.85);
+}
